@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech To Text</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        body {
+            background: seagreen;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: white;
+            width: 350px;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <h1>Speech To Text App</h1>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button type="submit">Speak!</button>
+        <button type="button">Stop</button>
+    </form>
+
+
+    <script>
+        let form = document.querySelector('form');
+        let sr = window.webkitSpeechRecognition || window.SpeechRecognition;
+        let spRec = new sr();
+        // console.log(spRec);
+        spRec.lang = "hi";
+        spRec.continuous = true;
+        spRec.interimResults = true;
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            spRec.start();
+        });
+
+        spRec.onresult = res => {
+            let text = Array.from(res.results)
+                .map(r => r[0])
+                .map(t => t.transcript)
+                .join("");
+            form[0].value = text;
+            console.log(text);
+        }
+        form[2].addEventListener("click", e => {
+            spRec.stop();
+        });
+    </script>
+</body>
+
+</html>
