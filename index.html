@@ -48,8 +48,8 @@
         let sr = window.webkitSpeechRecognition || window.SpeechRecognition;
         let spRec = new sr();
         // console.log(spRec);
-        spRec.lang = "hi";
         spRec.continuous = true;
+        spRec.lang = "bn";
         spRec.interimResults = true;
         form.addEventListener("submit", e => {
             e.preventDefault();
